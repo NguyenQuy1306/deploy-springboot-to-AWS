@@ -1,0 +1,85 @@
+[
+{
+	"uri": "//localhost:1313/",
+	"title": "Deploy Spring boot application to AWS Cloud",
+	"tags": [],
+	"description": "",
+	"content": "Deploy Spring boot application to AWS Cloud Overview In this lab, we will deploy a Spring Boot application to AWS Cloud using EC2 instances to ensure the application\u0026rsquo;s scalability based on user demand. This deployment will enable us to efficiently handle varying traffic levels from users accessing the application\nAfter completing the workshop, the architecture is as follows: Content: Introduction Create Security Group and Key Pair Create EC2 instance Connect EC2 via ssh Prepare and build the Springboot application Deploy the application to the EC2 instance Clean up resources "
+},
+{
+	"uri": "//localhost:1313/2-sw-and-key/1-security-group/",
+	"title": "Create Security Group",
+	"tags": [],
+	"description": "",
+	"content": "Follow these steps:\nAccess the AWS Management Console Search for EC2 Select EC2 At page EC2 Click Security groups At page Security groups Click Create security group At page Create security group Fill in your Security group name Fill in your Description Click drop-down option to choose your exist VPC Next, click add rule Add inbound rules include SSH and HTTP Then add the IP address for SSH is your ip V4 and HTTP is from all source. Finally, click Create security group Result "
+},
+{
+	"uri": "//localhost:1313/1-prerequisite/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "AWS cloud Region: The geographical area where your resources are hosted.\nVPC (Virtual Private Cloud): A virtual network dedicated to your AWS account for isolated cloud resources.\nAmazone EC2 Amazon Elastic Compute Cloud (Amazon EC2) provides on-demand, scalable computing capacity in the Amazon Web Services (AWS) Cloud. Using Amazon EC2 reduces hardware costs so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. You can add capacity (scale up) to handle compute-heavy tasks, such as monthly or yearly processes, or spikes in website traffic. When usage decreases, you can reduce capacity (scale down) again.\nUser interaction HTTP Requests: Users interact with the deployed application via HTTP.\nDockerHub Docker Image: The EC2 instance pulls the required Docker image from DockerHub as part of the deployment process.\n"
+},
+{
+	"uri": "//localhost:1313/2-sw-and-key/",
+	"title": "Create Security Group and Key Pair",
+	"tags": [],
+	"description": "",
+	"content": "Trong bước này, chúng ta sẽ lần lượt thực hiện:\nCreate a security group for EC2 instance Create a key pair for EC2 instance Content: Create Security Group Create Key Pair "
+},
+{
+	"uri": "//localhost:1313/3-ec2-intance/",
+	"title": "Create EC2 instance",
+	"tags": [],
+	"description": "",
+	"content": "In this part, we will create EC2 instance in aws.\nFollow these steps:\nAccess the AWS Management Console Search for EC2 Select EC2 On the left of page EC2 Click Intances Then, click Launch instance to create a new instance At page Create EC2 instance Fill in your Instance name Choose application and OS images is Amazon linux In Instance type, choose the instance type as follows: In key pair, choose the key pair that you have created before In network settings, choose VPC default Click Select existing security group because you have created a security group for this instance in previous section. In this project, we just need 1 instance. So, don\u0026rsquo;t adjust the number of instance. Finally, click launch instance to create instance. Result "
+},
+{
+	"uri": "//localhost:1313/2-sw-and-key/2-key-pair/",
+	"title": "Create EC2 instance",
+	"tags": [],
+	"description": "",
+	"content": "Follow these steps:\nAccess the AWS Management Console Search for EC2 Select EC2 On the left of page EC2 Click Key pairs Then, click Create key pair At page Create key pair Fill in your Key pair name Choose Key pair type RSA Choose private key file format .pem Finally, click create key pair 4.Result "
+},
+{
+	"uri": "//localhost:1313/4-connection/",
+	"title": "Connect EC2 via ssh",
+	"tags": [],
+	"description": "",
+	"content": "In this part, we will create a connection to EC2 instance by ssh.\nFollow these steps:\nAccess the AWS Management Console Search for EC2 Select EC2 On the left of page EC2 Click Intances Then, click your instance to view detail At page detail You can see public IPv4 address of the instance Copy this address. Next, open powershell in your computer Then, type this \u0026ldquo;ssh -i C:\\Users\\cnyegun\\Downloads\\spring-boot-demo.pem ec2-user@18.140.57.186\u0026rdquo; Note: You must adjust the ip adress on the right of the symbol @ by your ip address of your instance in the command above. In the screen will ask you to accept to creat connect. Type Yes Result "
+},
+{
+	"uri": "//localhost:1313/5-sourcecode/",
+	"title": "Prepare and build the Springboot application",
+	"tags": [],
+	"description": "",
+	"content": "In this part, we will create your Springboot application and push it to docker hub.\nFollow these steps:\nPrepare Your Spring Boot Application Ensure your Spring Boot application is working correctly Add a Dockerfile in the root of your project. Build and Push Docker Image to Docker Hub Build Docker Image by running the following command: docker build -t your-dockerhub-username/your-app-name . Login to Docker Hub:\ndocker login Push Docker Image to Docker Hub:\ndocker push your-dockerhub-username/your-app-name Finally, go to docker hub and check the image have been created:\n"
+},
+{
+	"uri": "//localhost:1313/6-testing/",
+	"title": "Deploy the application to the EC2 instance",
+	"tags": [],
+	"description": "",
+	"content": "In this part, we will deplot Springboot application into EC2 server.\nFollow these steps:\nIf you have connected to EC2 by ssh then go to step 2 else go back section 4.\nSection 4\nOpen powershell in your computer:\nInstall Docker by running the following command: sudo yum install -y docker 3. Start docker:\nsudo service docker start Then, check container is running: sudo docker ps Now, you can see that it has no container is running. Run docker image: sudo docker run -d -p 80:8080 yourdockerimage:tag 5. Check container is running again:\nsudo docker ps Now, you can see that it has a conternain is running! Open the server by IP address of EC2: Back to AWS Open instance detail Copy the puclic IPv4 of instance New tab, and paste the IPv4 Then, you can see the server is running successfully in AWS. "
+},
+{
+	"uri": "//localhost:1313/7-cleanup/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "In this part, we will clean up the resouces after deploy succesfully:\nAccess the AWS Management Console Search for EC2 Select EC2 Delete EC2 instance: Access to intances Click choose instance Click instance state Then choose terminate (delete) instance Continue click Terminate (delete) Result Xóa Security Group\nTruy cập EC2 Management Console Trên thanh điều hướng bên trái, chọn Security Groups Chọn tất cả Security Groups liên quan tới bài lab. Click Actions. Click Delete security groups Click Delete "
+},
+{
+	"uri": "//localhost:1313/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
